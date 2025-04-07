@@ -24,15 +24,17 @@ bot.start((ctx) => {
 
 // Обработчик для кнопки "Оставить заявку"
 bot.action('leave_request', (ctx) => {
-    const message = `Новая заявка от @${ ctx.from.username || 'без username' }: \n\n${ ctx.message.text }`;
+    const username = ctx.from.username || 'без username';
+    const message = `Новая заявка от @${username}: \n\nПросто оставлена заявка, данных нет.`;
     bot.telegram.sendMessage(adminChatId, message); // Отправка сообщения админу
     ctx.reply('Заявка отправлена!');
 });
 
 // Обработчик для кнопки "Обратная связь"
 bot.action('feedback', (ctx) => {
-    const feedback = `Сообщение от @${ ctx.from.username || 'без username' }: \n\n${ ctx.message.text }`;
-    bot.telegram.sendMessage(adminChatId, feedback); // Отправка сообщения админу
+    const username = ctx.from.username || 'без username';
+    const feedbackMassage = `Сообщение от @${username}: \n\nПросто оставлена заявка, данных нет.`;
+    bot.telegram.sendMessage(adminChatId, feedbackMassage); // Отправка сообщения админу
     ctx.reply('Ваше сообщение отправлено в обратную связь!');
 });
 

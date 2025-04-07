@@ -37,7 +37,7 @@ bot.hears('Оставить заявку', (ctx) => {
 bot.hears('Обратная связь', (ctx) => {
     ctx.reply('Напишите ваше сообщение, мы обязательно ответим!');
     bot.on('text', (ctx) => {
-        const feedback = Сообщение от @${ ctx.from.username || 'без username' }: \n\n${ ctx.message.text };
+        const feedback = `Сообщение от @${ ctx.from.username || 'без username' }: \n\n${ ctx.message.text }`;
         ctx.telegram.sendMessage(process.env.ADMIN_CHAT_ID, feedback);
         ctx.reply('Спасибо за обратную связь!');
     });

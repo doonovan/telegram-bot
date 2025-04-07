@@ -1,3 +1,5 @@
+console.log('BOT_TOKEN:', process.env.BOT_TOKEN);
+console.log('ADMIN_ID:', process.env.ADMIN_ID); 
 require('dotenv').config();
 const { Telegraf, session, Markup } = require('telegraf');
 

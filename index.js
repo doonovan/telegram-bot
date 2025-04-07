@@ -26,7 +26,7 @@ bot.start((ctx) => {
 bot.action('leave_request', (ctx) => {
     const username = ctx.from.username || 'без username';
     const message = `Новая заявка от @${username}: \n\nПросто оставлена заявка, данных нет.`;
-    bot.telegram.sendMessage(adminChatId, message); // Отправка сообщения админу
+    bot.telegram.sendMessage(ADMIN_CHAT_ID, message); // Отправка сообщения админу
     ctx.reply('Заявка отправлена!');
 });
 
@@ -34,7 +34,7 @@ bot.action('leave_request', (ctx) => {
 bot.action('feedback', (ctx) => {
     const username = ctx.from.username || 'без username';
     const feedbackMassage = `Сообщение от @${username}: \n\nПросто оставлена заявка, данных нет.`;
-    bot.telegram.sendMessage(adminChatId, feedbackMassage); // Отправка сообщения админу
+    bot.telegram.sendMessage(ADMIN_CHAT_ID, feedbackMassage); // Отправка сообщения админу
     ctx.reply('Ваше сообщение отправлено в обратную связь!');
 });
 

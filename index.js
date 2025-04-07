@@ -27,7 +27,7 @@ bot.hears('Оставить заявку', (ctx) => {
         'Пожалуйста, отправьте ваше имя, телефон и интересующий товар. Мы свяжемся с вами!'
     );
     bot.on('text', (ctx) => {
-        const msg = Новая заявка от @${ ctx.from.username || 'без username' }: \n\n${ ctx.message.text };
+        const msg = `Новая заявка от @${ ctx.from.username || 'без username' }: \n\n${ ctx.message.text }`;
         ctx.telegram.sendMessage(process.env.ADMIN_CHAT_ID, msg);
         ctx.reply('Спасибо! Ваша заявка принята.');
     });

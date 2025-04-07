@@ -50,7 +50,7 @@ bot.on('text', async (ctx) => {
         }
 
         // Отправка админу
-        await ctx.telegram.sendMessage(7117921268, adminMessage);
+        await ctx.telegram.sendMessage(process.env.ADMIN_ID, adminMessage);
         ctx.session.type = null; // сбрасываем после отправки
     }
 });

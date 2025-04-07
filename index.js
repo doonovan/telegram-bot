@@ -4,11 +4,7 @@ const { Telegraf, Markup } = require('telegraf');
 const bot = new Telegraf(process.env.BOT_TOKEN);
 const ADMIN_CHAT_ID = process.env.ADMIN_CHAT_ID;
 
-//  Указываешь URL, на который Telegram будет отправлять обновления
-// bot.telegram.setWebhook('https://your-project-name.railway.app/webhook');
-
-
-// Обработчик команды /start
+// Стартовое сообщение с кнопками
 bot.start((ctx) => {
     ctx.reply('Привет! Нажми на кнопку для оставления заявки или обратной связи:', {
         reply_markup: {
@@ -22,20 +18,40 @@ bot.start((ctx) => {
     });
 });
 
-// Обработчик для кнопки "Оставить заявку"
+// Обработчик кнопки "Оставить заявку"
 bot.action('leave_request', (ctx) => {
-    const username = ctx.from.username || 'без username';
-    const message = `Новая заявка от @${username}: \n\nПросто оставлена заявка, данных нет.`;
-    bot.telegram.sendMessage(ADMIN_CHAT_ID, message); // Отправка сообщения админу
-    ctx.reply('Заявка отправлена!');
+    ctx.reply('Пожалуйста, введите ваше сообщение для заявки.');
+
+    // Начинаем диалог с пользователем: собираем текст заявки
+    bot.on('text', async (ctx) => {
+        if (ctx.message.chat.id === ctx.from.id) {
+            const username = ctx.from.username || 'без username';
+            const message = `Новая заявка от @${ username }: \n\n${ ctx.message.text }`;
+            bot.telegram.sendMessage(ADMIN_CHAT_ID, message);
+            ctx.reply('Заявка отправлена!');
+
+            // Завершаем сбор сообщений
+            bot.removeListener('text');
+        }
+    });
 });
 
-// Обработчик для кнопки "Обратная связь"
+// Обработчик кнопки "Обратная связь"
 bot.action('feedback', (ctx) => {
-    const username = ctx.from.username || 'без username';
-    const feedbackMassage = `Сообщение от @${username}: \n\nПросто оставлена заявка, данных нет.`;
-    bot.telegram.sendMessage(ADMIN_CHAT_ID, feedbackMassage); // Отправка сообщения админу
-    ctx.reply('Ваше сообщение отправлено в обратную связь!');
+    ctx.reply('Пожалуйста, введите ваше сообщение для обратной связи.');
+
+    // Начинаем диалог с пользователем: собираем текст обратной связи
+    bot.on('text', async (ctx) => {
+        if (ctx.message.chat.id === ctx.from.id) {
+            const username = ctx.from.username || 'без username';
+            const feedbackMessage = `Сообщение от @${ username }: \n\n${ ctx.message.text }`;
+            bot.telegram.sendMessage(ADMIN_CHAT_ID, feedbackMessage);
+            ctx.reply('Ваше сообщение отправлено в обратную связь!');
+
+            // Завершаем сбор сообщений
+            bot.removeListener('text');
+        }
+    });
 });
 
 // Запуск бота

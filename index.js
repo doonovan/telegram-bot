@@ -40,10 +40,10 @@ bot.on('text', async (ctx) => {
         let adminMessage = '';
 
         if (type === 'request') {
-            adminMessage = `Новая заявка от @${ username }: \n\n${ userText }`;
+            adminMessage = `Новая заявка от @${username}: \n\n${ userText }`;
             await ctx.reply('Спасибо! Мы получили вашу заявку и скоро свяжемся с вами.');
         } else if (type === 'feedback') {
-            adminMessage = `Сообщение от @${ username }: \n\n${ userText }`;
+            adminMessage = `Сообщение от @${username}: \n\n${ userText }`;
             await ctx.reply('Спасибо за сообщение! Мы скоро вам ответим.');
         }
 
